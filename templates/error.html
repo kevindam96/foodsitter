@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Food<span class="pink">Sitter</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+        {% if session.user_id %}
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="/add">Add Food</a></li>
+                <li class="nav-item"><a class="nav-link" href="/takeout">Take Out Food</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shoppinglist">Shopping List</a></li>
+                <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
+                <li class="nav-item"><a class="nav-link" href="/settings">Settings</a></li>
+            </ul>
+        {% else %}
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/register">Register <span class="sr-only">(current)</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+            </ul>
+        {% endif %}
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block title %}
+    Error!
+{% endblock %}
+
+{% block main %}
+    <h1>Code {{ top }}!</h1>
+    <p class="text-secondary">{{ bottom }}</p>
+{% endblock %}

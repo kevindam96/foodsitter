@@ -1,0 +1,11 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .pink
+{
+    color: #f3969a;
+}

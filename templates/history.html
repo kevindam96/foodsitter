@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Food<span class="pink">Sitter</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="/add">Add Food</a></li>
+            <li class="nav-item"><a class="nav-link" href="/takeout">Take Out Food</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shoppinglist">Shopping List</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/history">History</a></li>
+            <li class="nav-item"><a class="nav-link" href="./settings">Settings</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% endblock %}
+
+{% block main %}
+
+<div class="jumbotron">
+    <h1 class="display-3">History</h1>
+    <p class="lead">Something missing from the cookie jar?</p>
+    <hr class="my-4">
+    <p>Here's what you did...</p>
+
+    <table class="table table-hover sortable">
+        <thead>
+            <th scope="col">Quantity</th>
+            <th scope="col">Food</th></th>
+            <th scope="col">Category</th>
+            <th scope="col">Location</th>
+            <th scope="col">Expiration Date</th>
+            <th scope="col">Date Added or Removed</th>
+        </thead>
+        {% for row in rows %}
+        {% if row["quantity"] > 0 %}
+            <tr class="table-primary">
+                <td>+{{ row["quantity_str"]+" "+row["unit"] }}</td>
+                <td>{{ row["food"] }}</td>
+                <td>{{ row["category"] }}</td>
+                <td>{{ row["location"] }}</td>
+                <td sorttable_customkey="{{ row["date_key"] }}">{{ row["expire"] }}</td>
+                <td>{{ row["date_added"] }}</td>
+            </tr>
+        {% else %}
+            <tr class="table-secondary">
+                <td>{{ row["quantity_str"]+" "+row["unit"] }}</td>
+                <td>{{ row["food"] }}</td>
+                <td>{{ row["category"] }}</td>
+                <td>{{ row["location"] }}</td>
+                <td sorttable_customkey="{{ row["date_key"] }}">{{ row["expire"] }}</td>
+                <td>{{ row["date_added"] }}</td>
+            </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}

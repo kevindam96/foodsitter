@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Settings
+{% endblock %}
+
+{% block body %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Food<span class="pink">Sitter</span></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor03">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a class="nav-link" href="/add">Add Food</a></li>
+            <li class="nav-item"><a class="nav-link" href="/takeout">Take Out Food</a></li>
+            <li class="nav-item"><a class="nav-link" href="/shoppinglist">Shopping List</a></li>
+            <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
+            <li class="nav-item active"><a class="nav-link" href="/settings">Settings</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% endblock %}
+
+{% block main %}
+
+<div class="jumbotron">
+        <p class="lead">Configure your units</p>
+        <hr class="my-4">
+        <form action="/settings" method="POST">
+        <div class="form-group">
+            <label for="unit">Select the units to be removed</label>
+            <select multiple class="form-control" id="unit" name="unit">
+                {% for unit in units %}
+                <option>{{ unit["name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+</div>
+
+<div class="jumbotron">
+        <p class="lead">Configure your categories</p>
+        <hr class="my-4">
+        <div class="form-group">
+            <label for="unit">Select the categories to be removed</label>
+            <select multiple="" class="form-control" name="category">
+                {% for category in categories %}
+                <option>{{ category["name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+</div>
+
+<div class="jumbotron">
+        <p class="lead">Configure your locations</p>
+        <hr class="my-4">
+        <div class="form-group">
+            <label for="unit">Select the locations to be removed</label>
+            <select multiple="" class="form-control" name="location">
+                {% for location in locations %}
+                <option>{{ location["name"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+</div>
+
+<div class="jumbotron">
+    <p class="lead">Configure your <strong>Shopping List</strong></p>
+    <hr class="my-4">
+        <table class="table sortable">
+            <thead>
+                <th scope="col">Food</th></th>
+                <th scope="col"></th>
+            </thead>
+            {% for row in rows %}
+            <tr>
+                <td><strong>{{ row["food"] }}</strong></td>
+                <td>
+                    <table class="table-borderless">
+                        <tr>
+                            <td>Add <strong>{{ row["food"] }}</strong> to the shopping list when the expiration date is within this number of days:</td>
+                            <td><input value="{{row["days_config"]}}" style="width: 110px" autocomplete="off" class="form-control" name="{{ row["days_form_name"] }}" placeholder="Number" type="number" step="1" min="1"/></td>
+                            <td>days</td>
+                        </tr>
+                        <tr>
+                            <td>Add <strong>{{ row["food"] }}</strong> to the shopping list when the total quantity of it is less than this quantity:</td>
+                            <td><input value="{{row["quantity_config"]}}" style="width: 110px" autocomplete="off" class="form-control" name="{{ row["qty_form_name"] }}" placeholder="Quantity" type="number" step="0.01" min="0.01"/></td>
+                            <td>{{ row["unit"] }}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% if row["configured"] == True %}
+                                    {% if row["days_config"] == "" %}
+                                        <span class="badge badge-success">Currently, <strong>{{ row["food"] }}</strong> is added to the shopping list when the total quantity is less than {{row["quantity_config"]}} {{row["unit"]}}</span>
+                                    {% elif row["quantity_config"] == "" %}
+                                        <span class="badge badge-success">Currently, <strong>{{ row["food"] }}</strong> is added to the shopping list when the expiration date is within {{row["days_config"]}} days.</span>
+                                    {% else %}
+                                        <span class="badge badge-success">Currently, <strong>{{ row["food"] }}</strong> is added to the shopping list when the expiration date is within {{row["days_config"]}} days <br> or when the quantity is less than {{row["quantity_config"]}} {{row["unit"]}}</span>
+                                    {% endif %}
+                            </td>
+                            <td></td>
+                            <td>
+                                    <button type="submit" name="clear" type="button" class="btn btn-secondary float-right" formaction="/clear" value="{{ row["food"] }}">Clear</button>
+                            </td>
+                                {% else %}
+                                    <span class="badge badge-info">Currently, there are no Shopping List configurations for <strong>{{ row["food"] }}.</span>
+                            </td>
+                                {% endif %}
+                        </tr>
+                    </table>
+            </tr>
+            {% endfor %}
+        </table>
+</div>
+
+        <button type="submit" class="btn btn-outline-info">Update Settings</button>
+    </form>
+
+{% endblock %}

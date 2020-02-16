@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Food<span class="pink">Sitter</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item "><a class="nav-link" href="/register">Register </a></li>
+                <li class="nav-item active"><a class="nav-link" href="/login">Log In </a></li>
+            </ul>
+        </div>
+    </nav>
+
+{% endblock %}
+
+{% block main %}
+
+    <form action="/login" method="POST">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" required/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" name="password" placeholder="Password" type="password" required/>
+        </div>
+        <button class="btn btn-secondary" type="submit">Log In</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+        <!-- documentation at http://getbootstrap.com/docs/4.0/, alternative themes at https://bootswatch.com/4-alpha/ -->
+        <!-- theme documentation at https://bootswatch.com/minty/#top -->
+        <link href="https://bootswatch.com/4/minty/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://raw.githubusercontent.com/bassjobsen/typeahead.js-bootstrap4-css/master/typeaheadjs.css" rel="stylesheet"/>
+
+        <link href="/static/styles.css" rel="stylesheet"/>
+
+        <!-- documentation at https://api.jquery.com/ -->
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <!-- documentation at https://api.jquerymobile.com/1.4/ -->
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js"></script>
+
+        <!-- documentation at https://www.kryogenix.org/code/browser/sorttable/ -->
+        <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+
+        <!-- from pset7 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+        <script src="https://raw.githubusercontent.com/bassjobsen/Bootstrap-3-Typeahead/master/bootstrap3-typeahead.js"></script>
+
+        <!-- app's own JavaScript -->
+        <script src="/static/scripts.js"></script>
+
+        <!-- http://handlebarsjs.com/ -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
+        <title>FoodSitter: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+
+        {% block body %}{% endblock %}
+
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary border text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+
+        <main class="container p-5">
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="small text-center text-muted">
+        </footer>
+
+    </body>
+
+</html>
